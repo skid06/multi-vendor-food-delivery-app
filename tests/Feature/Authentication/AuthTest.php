@@ -48,7 +48,7 @@ class AuthTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $user = User::factory()->create();
-        $token = $user->createToken('authToken')->accessToken;
+        $token = $user->createToken('authToken')->plainTextToken;
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,

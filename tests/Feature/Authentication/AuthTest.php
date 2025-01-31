@@ -1,0 +1,60 @@
+<?php
+namespace Tests\Feature\Authentication;
+
+use Tests\TestCase;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+class AuthTest extends TestCase
+{
+    use RefreshDatabase;
+
+    public function test_user_registration()
+    {
+        $this->withoutExceptionHandling();
+        $response = $this->postJson('/api/register', [
+            'name' => 'John Doe',
+            'email' => 'john@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+            'role' => 'customer',
+        ]);
+
+        $response->assertStatus(201)
+            ->assertJsonStructure(['token']);
+
+        $this->assertDatabaseHas('users', [
+            'email' => 'john@example.com',
+        ]);
+    }
+
+    public function test_user_login()
+    {
+        $user = User::factory()->create([
+            'email' => 'john@example.com',
+            'password' => bcrypt('password'),
+        ]);
+
+        $response = $this->postJson('/api/login', [
+            'email' => 'john@example.com',
+            'password' => 'password',
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJsonStructure(['token']);
+    }
+
+    public function test_user_logout()
+    {
+        $this->withoutExceptionHandling();
+        $user = User::factory()->create();
+        $token = $user->createToken('authToken')->accessToken;
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->postJson('/api/logout');
+
+        $response->assertStatus(200)
+            ->assertJson(['message' => 'Logged out']);
+    }
+}

@@ -17,6 +17,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::apiResource('restaurants', RestaurantController::class);
-    Route::apiResource('food-items', FoodItemController::class);
+    Route::apiResource('food-items', FoodItemController::class)->except(['store']);
+    Route::post('/food-items/{restaurant}', [FoodItemController::class, 'store']);
     Route::apiResource('orders', OrderController::class);
 });

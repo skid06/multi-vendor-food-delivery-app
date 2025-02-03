@@ -7,7 +7,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FoodItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RestaurantController;
-use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\AdminController;
 
@@ -38,5 +37,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::middleware(RoleMiddleware::class.':admin')->group(function () {
         Route::get('users', [AdminController::class, 'getUsers']);
         Route::get('all-orders', [AdminController::class, 'getAllOrders']);
+    });
+
+    Route::middleware(RoleMiddleware::class.':rider')->group(function () {
+        Route::get('/available-orders', [RiderController::class, 'getAvailableOrders']);
+        Route::post('/accept-order/{orderId}', [RiderController::class, 'acceptOrder']);
+        Route::put('/update-order-status/{orderId}', [RiderController::class, 'updateOrderStatus']);
+        Route::get('/my-orders', [RiderController::class, 'getMyOrders']);
     });
 });

@@ -11,10 +11,10 @@ class OrderController extends Controller
     protected $paymentGateway;
     protected $orderService;
 
-    public function __construct(PaymentGateway $paymentGateway, OrderService $orderSerivce)
+    public function __construct(PaymentGateway $paymentGateway, OrderService $orderService)
     {
         $this->paymentGateway = $paymentGateway;
-        $this->orderService = $orderSerivce;
+        $this->orderService = $orderService;
     }
 
     public function store(StoreOrderRequest $request)

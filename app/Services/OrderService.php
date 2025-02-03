@@ -67,7 +67,7 @@ class OrderService
      * @param float $totalAmount
      * @return Order
      */
-    private function createOrderRecord(Request $request, float $totalAmount)
+    private function createOrderRecord(StoreOrderRequest $request, float $totalAmount)
     {
         return Order::create([
             'user_id' => Auth::id(),

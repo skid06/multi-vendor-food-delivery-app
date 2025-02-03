@@ -36,6 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::middleware(RoleMiddleware::class.':admin')->group(function () {
-
+        Route::get('users', AdminController::class, 'getUsers');
+        Route::get('all-orders', AdminController::class, 'getAllOrders');
     });
 });

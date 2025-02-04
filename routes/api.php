@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RiderController;
 use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -10,7 +11,7 @@ use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\AdminController;
 
-Route::get('/user', function (Request $request) {
+Route::get('/my-token', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 

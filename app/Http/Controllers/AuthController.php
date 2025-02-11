@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(Request $request): JsonResponse
     {
         $request->validate([
             'name' => 'required|string',
@@ -18,19 +19,25 @@ class AuthController extends Controller
             'role' => 'required|in:customer,vendor,admin',
         ]);
 
+        $password = (string) $request->password; // Explicitly cast to string
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
+            'password' => bcrypt($password),
             'role' => $request->role,
         ]);
+
+        if (!$user) {
+            return response()->json(['error' => 'User registration failed.'], 400);
+        }
 
         $token = $user->createToken('authToken')->plainTextToken;
 
         return response()->json(['token' => $token], 201);
     }
 
-    public function login(Request $request)
+    public function login(Request $request): JsonResponse
     {
         $credentials = $request->only('email', 'password');
 

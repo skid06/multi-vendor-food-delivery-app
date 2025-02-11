@@ -5,7 +5,7 @@ use App\Contracts\PaymentGateway;
 
 class PayPalPaymentGatewayService implements PaymentGateway
 {
-    public function charge($amount, $token)
+    public function charge(float $amount, string $token): string
     {
         // Implement PayPal payment logic here
         // Example: Use PayPal SDK to process payment

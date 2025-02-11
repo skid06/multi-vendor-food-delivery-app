@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Restaurant extends Model
 {
@@ -27,7 +28,7 @@ class Restaurant extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function foodItems()
+    public function foodItems(): HasMany
     {
         return $this->hasMany(FoodItem::class);
     }

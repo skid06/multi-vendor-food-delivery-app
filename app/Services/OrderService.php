@@ -22,7 +22,7 @@ class OrderService
     /**
      * Handle the process of creating an order.
      *
-     * @param Request $request
+     * @param StoreOrderRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function createOrder(StoreOrderRequest $request)
@@ -63,7 +63,7 @@ class OrderService
     /**
      * Create the order record.
      *
-     * @param Request $request
+     * @param StoreOrderRequest $request
      * @param float $totalAmount
      * @return Order
      */

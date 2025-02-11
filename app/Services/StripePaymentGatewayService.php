@@ -11,7 +11,7 @@ class StripePaymentGatewayService implements PaymentGateway
         Stripe::setApiKey(config('services.stripe.secret'));
     }
 
-    public function charge($amount, $token)
+    public function charge(float $amount, string $token): string
     {
         try {
             $charge = \Stripe\Charge::create([

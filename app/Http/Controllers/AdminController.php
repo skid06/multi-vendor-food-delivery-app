@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -16,17 +17,20 @@ class AdminController extends Controller
      */
     public function getUsers(Request $request)
     {
-        // Set the number of items per page (default to 10 if not provided)
-        $perPage = $request->input('per_page', 10);
+        // Get the value of 'per_page' from the request and cast it to an integer
+        $perPage = $request->input('per_page', 10);  // Default to 10 if not set
+        $perPage = filter_var($perPage, FILTER_VALIDATE_INT, ["options" => ["min_range" => 1]]) ?: 10;
 
+        // Now pass $perPage to paginate, which is guaranteed to be an integer
         $users = User::paginate($perPage);
 
         return response()->json($users);
     }
 
-    public function getAllOrders(Request $request)
+    public function getAllOrders(Request $request): JsonResponse
     {
         $perPage = $request->input('per_page', 10);
+        $perPage = filter_var($perPage, FILTER_VALIDATE_INT, ["options" => ["min_range" => 1]]) ?: 10;
 
         $orders = Order::paginate($perPage);
 

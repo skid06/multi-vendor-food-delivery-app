@@ -4,5 +4,5 @@ namespace App\Contracts;
 
 interface PaymentGateway
 {
-    public function charge($amount, $token);
+    public function charge(float $amount, string $token): string;
 }

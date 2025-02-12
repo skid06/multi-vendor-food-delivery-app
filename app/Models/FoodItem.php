@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class FoodItem extends Model
 {
     use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -19,7 +22,7 @@ class FoodItem extends Model
         'description',
         'restaurant_id',
         'price',
-        'image'
+        'image',
     ];
 
     public function restaurant(): BelongsTo

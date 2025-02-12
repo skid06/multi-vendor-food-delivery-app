@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Order;
@@ -12,6 +14,7 @@ class RiderController extends Controller
     public function getAvailableOrders()
     {
         $orders = Order::where('status', 'ready_for_delivery')->get();
+
         return response()->json($orders);
     }
 
@@ -57,6 +60,7 @@ class RiderController extends Controller
     public function getMyOrders()
     {
         $orders = Order::where('rider_id', auth()->id())->get();
+
         return response()->json($orders);
     }
 }

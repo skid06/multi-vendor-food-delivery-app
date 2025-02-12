@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -11,10 +13,11 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+    use Billable;
+
+    use HasApiTokens;
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
-    use Billable;
-    use HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -26,7 +29,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'stripe_id'
+        'stripe_id',
     ];
 
     /**
@@ -38,19 +41,6 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
 
     public function restaurants()
     {
@@ -65,5 +55,18 @@ class User extends Authenticatable
     public function rider()
     {
         return $this->hasOne(Rider::class);
+    }
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
     }
 }

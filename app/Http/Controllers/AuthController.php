@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\User;
-
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +29,7 @@ class AuthController extends Controller
             'role' => $request->role,
         ]);
 
-        if (!$user) {
+        if (! $user) {
             return response()->json(['error' => 'User registration failed.'], 400);
         }
 
@@ -44,6 +45,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $token = $user->createToken('authToken')->plainTextToken;
+
             return response()->json(['token' => $token], 200);
         }
 
@@ -53,6 +55,7 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
+
         return response()->json(['message' => 'Logged out'], 200);
     }
 }

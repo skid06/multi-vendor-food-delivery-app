@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\RiderController;
-use App\Http\Middleware\RoleMiddleware;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+declare(strict_types=1);
+
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FoodItemController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RestaurantController;
-use App\Http\Controllers\VendorController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\RiderController;
+use App\Http\Middleware\RoleMiddleware;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/my-token', function (Request $request) {
     return $request->user();

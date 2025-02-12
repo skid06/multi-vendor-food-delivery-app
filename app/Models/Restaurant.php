@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Restaurant extends Model
 {
     use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,7 +23,7 @@ class Restaurant extends Model
         'address',
         'phone',
         'logo',
-        'user_id'
+        'user_id',
     ];
 
     public function user()

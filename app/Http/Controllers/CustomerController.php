@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Models\Restaurant;
 use App\Models\FoodItem;
 use App\Models\Order;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -13,6 +15,7 @@ class CustomerController extends Controller
     public function getRestaurants()
     {
         $restaurants = Restaurant::all();
+
         return response()->json($restaurants);
     }
 
@@ -20,6 +23,7 @@ class CustomerController extends Controller
     public function getFoodItems($restaurantId)
     {
         $foodItems = FoodItem::where('restaurant_id', $restaurantId)->get();
+
         return response()->json($foodItems);
     }
 
@@ -65,6 +69,7 @@ class CustomerController extends Controller
     public function getOrderHistory()
     {
         $orders = Order::where('user_id', auth()->id())->get();
+
         return response()->json($orders);
     }
 }

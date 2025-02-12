@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
+use App\Contracts\PaymentGateway;
 use App\Http\Requests\StoreOrderRequest;
 use App\Models\FoodItem;
 use App\Models\Order;
 use App\Models\OrderItem;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Contracts\PaymentGateway;
 
 class OrderService
 {
@@ -22,7 +23,6 @@ class OrderService
     /**
      * Handle the process of creating an order.
      *
-     * @param StoreOrderRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function createOrder(StoreOrderRequest $request)
@@ -45,7 +45,6 @@ class OrderService
     /**
      * Calculate the total amount of the order.
      *
-     * @param array $items
      * @return float
      */
     private function calculateTotalAmount(array $items)
@@ -63,8 +62,6 @@ class OrderService
     /**
      * Create the order record.
      *
-     * @param StoreOrderRequest $request
-     * @param float $totalAmount
      * @return Order
      */
     private function createOrderRecord(StoreOrderRequest $request, float $totalAmount)
@@ -80,8 +77,6 @@ class OrderService
     /**
      * Add the order items to the order.
      *
-     * @param Order $order
-     * @param array $items
      * @return void
      */
     private function addOrderItems(Order $order, array $items)

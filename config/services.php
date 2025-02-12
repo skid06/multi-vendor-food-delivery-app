@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -37,6 +39,6 @@ return [
 
     'stripe' => [
         'secret' => env('STRIPE_SECRET'),
-    ]
+    ],
 
 ];

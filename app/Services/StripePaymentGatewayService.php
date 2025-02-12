@@ -1,8 +1,12 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Services;
 
-use Stripe\Stripe;
 use App\Contracts\PaymentGateway;
+use Exception;
+use Stripe\Stripe;
 
 class StripePaymentGatewayService implements PaymentGateway
 {
@@ -21,8 +25,8 @@ class StripePaymentGatewayService implements PaymentGateway
             ]);
 
             return $charge->id;
-        } catch (\Exception $e) {
-            throw new \Exception("Payment failed: " . $e->getMessage());
+        } catch (Exception $e) {
+            throw new Exception('Payment failed: '.$e->getMessage());
         }
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
@@ -43,12 +45,14 @@ class RestaurantController extends Controller
     public function update(Request $request, Restaurant $restaurant)
     {
         $restaurant->update($request->all());
+
         return response()->json($restaurant, 200);
     }
 
     public function destroy(Restaurant $restaurant)
     {
         $restaurant->delete();
+
         return response()->json(null, 204);
     }
 }

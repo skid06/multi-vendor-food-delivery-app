@@ -1,10 +1,13 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Tests\Feature\Restaurant;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Restaurant;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class RestaurantTest extends TestCase
 {
@@ -17,7 +20,7 @@ class RestaurantTest extends TestCase
         $token = $user->createToken('authToken')->plainTextToken;
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer ' . $token,
+            'Authorization' => 'Bearer '.$token,
         ])->postJson('/api/restaurants', [
             'name' => 'Test Restaurant',
             'description' => 'A test restaurant',
@@ -40,7 +43,7 @@ class RestaurantTest extends TestCase
         $token = $user->createToken('authToken')->plainTextToken;
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer ' . $token,
+            'Authorization' => 'Bearer '.$token,
         ])->putJson("/api/restaurants/{$restaurant->id}", [
             'name' => 'Updated Restaurant',
         ]);
@@ -60,7 +63,7 @@ class RestaurantTest extends TestCase
         $token = $user->createToken('authToken')->plainTextToken;
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer ' . $token,
+            'Authorization' => 'Bearer '.$token,
         ])->deleteJson("/api/restaurants/{$restaurant->id}");
 
         $response->assertStatus(204);

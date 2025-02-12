@@ -1,9 +1,12 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Tests\Feature\Authentication;
 
-use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
@@ -51,7 +54,7 @@ class AuthTest extends TestCase
         $token = $user->createToken('authToken')->plainTextToken;
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer ' . $token,
+            'Authorization' => 'Bearer '.$token,
         ])->postJson('/api/logout');
 
         $response->assertStatus(200)

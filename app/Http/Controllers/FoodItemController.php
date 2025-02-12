@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\FoodItem;
@@ -23,6 +25,7 @@ class FoodItemController extends Controller
         ]);
 
         $foodItem = $restaurant->foodItems()->create($request->all());
+
         return response()->json($foodItem, 201);
     }
 
@@ -34,12 +37,14 @@ class FoodItemController extends Controller
     public function update(Request $request, FoodItem $foodItem)
     {
         $foodItem->update($request->all());
+
         return response()->json($foodItem, 200);
     }
 
     public function destroy(FoodItem $foodItem)
     {
         $foodItem->delete();
+
         return response()->json(null, 204);
     }
 }

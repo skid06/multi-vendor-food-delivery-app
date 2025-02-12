@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Events;
 
+use App\Models\Order;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Order;
 
 class OrderStatusUpdated implements ShouldBroadcast
 {
@@ -29,7 +31,7 @@ class OrderStatusUpdated implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('order.' . $this->order->id),
+            new PrivateChannel('order.'.$this->order->id),
         ];
     }
 }

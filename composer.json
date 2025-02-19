@@ -24,7 +24,8 @@
         "mockery/mockery": "^1.6.12",
         "nunomaduro/collision": "^8.6.1",
         "pestphp/pest": "^3.7.4",
-        "phpunit/phpunit": "^11.5.3"
+        "phpunit/phpunit": "^11.5.3",
+        "rector/rector": "^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -62,11 +63,15 @@
             "pest --parallel"
         ],
         "test:types": [
-            "phpstan"
+            "./vendor/bin/phpstan analyse --memory-limit=256M"
+        ],
+        "test:refactor": [
+            "rector --dry-run"
         ],
         "test": [
             "@test:unit",
-            "@test:types"
+            "@test:types",
+            "@test:refactor"
         ]
     },
     "extra": {

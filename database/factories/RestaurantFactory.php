@@ -27,7 +27,7 @@ class RestaurantFactory extends Factory
             'description' => fake()->text(),
             'address' => fake()->address(),
             'phone' => fake()->phoneNumber(),
-            'user_id' => User::factory(),
+            'user_id' => User::factory()->create(['role' => 'vendor']),
         ];
     }
 }

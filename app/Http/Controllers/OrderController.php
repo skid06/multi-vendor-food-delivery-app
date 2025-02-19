@@ -14,6 +14,10 @@ class OrderController extends Controller
 
     protected $orderService;
 
+    /**
+     * @param PaymentGateway $paymentGateway
+     * @param OrderService $orderService
+     */
     public function __construct(PaymentGateway $paymentGateway, OrderService $orderService)
     {
         $this->paymentGateway = $paymentGateway;

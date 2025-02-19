@@ -9,6 +9,7 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Models\FoodItem;
 use App\Models\Order;
 use App\Models\OrderItem;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
 class OrderService
@@ -25,8 +26,9 @@ class OrderService
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function createOrder(StoreOrderRequest $request)
+    public function createOrder(StoreOrderRequest $request): JsonResponse
     {
+        return 'fd';
         // Calculate total amount
         $totalAmount = $this->calculateTotalAmount($request->items);
 

@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::middleware(RoleMiddleware::class.':vendor')->group(function () {
-        Route::apiResource('restaurants', RestaurantController::class);
+        Route::apiResource('restaurants', RestaurantController::class)->except(['index']);
         Route::post('/food-items/{restaurant}', [FoodItemController::class, 'store']);
         Route::apiResource('food-items', FoodItemController::class)->except(['store']);
     });
@@ -38,6 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::middleware(RoleMiddleware::class.':admin')->group(function () {
         Route::get('users', [AdminController::class, 'getUsers']);
+        Route::apiResource('restaurants', RestaurantController::class);
         Route::get('all-orders', [AdminController::class, 'getAllOrders']);
     });
 

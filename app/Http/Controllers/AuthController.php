@@ -17,7 +17,7 @@ class AuthController extends Controller
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'role' => 'required|in:customer,vendor,admin',
+            'role' => 'required|in:customer,vendor,admin,rider',
         ]);
 
         $password = (string) $request->password; // Explicitly cast to string

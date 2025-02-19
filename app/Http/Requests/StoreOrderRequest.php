@@ -24,7 +24,7 @@ class StoreOrderRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'restaurant_id' => 'required|exists:restaurants,id',

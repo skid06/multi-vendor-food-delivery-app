@@ -6,6 +6,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Cashier\Billable;
@@ -42,17 +44,26 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function restaurants()
+    /**
+     * @return HasMany<Restaurant, $this>
+     */
+    public function restaurants() : HasMany
     {
         return $this->hasMany(Restaurant::class);
     }
 
-    public function orders()
+    /**
+     * @return HasMany<Order, $this>
+     */
+    public function orders() : HasMany
     {
         return $this->hasMany(Order::class);
     }
 
-    public function rider()
+    /**
+     * @return HasOne<Rider, $this>
+     */
+    public function rider() : HasOne
     {
         return $this->hasOne(Rider::class);
     }

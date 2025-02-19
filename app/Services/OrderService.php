@@ -20,20 +20,31 @@ class OrderService
 
     /**
      * Handle the process of creating an order.
+     *
+     * @param StoreOrderRequest $request
+     * @return JsonResponse
      */
     public function createOrder(StoreOrderRequest $request): JsonResponse
     {
+        /**
+         * @var array<int, array{food_item_id: int, quantity: int}> $items
+         */
+        $items = $request->validated()['items'];
         // Calculate total amount
-        $totalAmount = $this->calculateTotalAmount($request->items);
+        $totalAmount = $this->calculateTotalAmount($items);
 
+        /**
+         * @var string $payment_token
+         */
+        $payment_token = $request->validated()['payment_token'];
         // Process the payment
-        $this->paymentGateway->charge($totalAmount, $request->payment_token);
+        $this->paymentGateway->charge($totalAmount, $payment_token);
 
         // Create the order
         $order = $this->createOrderRecord($request, $totalAmount);
 
         // Add order items
-        $this->addOrderItems($order, $request->items);
+        $this->addOrderItems($order, $items);
 
         return response()->json($order, 201);
     }
@@ -48,7 +59,7 @@ class OrderService
         $totalAmount = 0;
 
         foreach ($items as $item) {
-            $foodItem = FoodItem::find($item['food_item_id']);
+            $foodItem = FoodItem::findOrFail($item['food_item_id']);
             $totalAmount += $foodItem->price * $item['quantity'];
         }
 
@@ -72,6 +83,8 @@ class OrderService
 
     /**
      * Add the order items to the order.
+     * @param Order $order
+     * @param array<int, array{food_item_id: int, quantity: int}> $items
      */
     private function addOrderItems(Order $order, array $items): void
     {
@@ -80,7 +93,7 @@ class OrderService
                 'order_id' => $order->id,
                 'food_item_id' => $item['food_item_id'],
                 'quantity' => $item['quantity'],
-                'price' => FoodItem::find($item['food_item_id'])->price,
+                'price' => FoodItem::findOrFail($item['food_item_id'])->price,
             ]);
         }
     }

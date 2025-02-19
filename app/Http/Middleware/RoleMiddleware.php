@@ -14,8 +14,9 @@ class RoleMiddleware
      * Handle an incoming request.
      *
      * @param  Closure(Request): (Response)  $next
+     * @param string $role
      */
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next, $role) : mixed
     {
         if ($request->user() && $request->user()->role === $role) {
             return $next($request);

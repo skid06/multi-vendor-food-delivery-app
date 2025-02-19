@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AuthRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -11,22 +12,25 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function register(Request $request): JsonResponse
+    /**
+     * @param AuthRequest $request
+     * @return JsonResponse
+     */
+    public function register(AuthRequest $request): JsonResponse
     {
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            'role' => 'required|in:customer,vendor,admin,rider',
-        ]);
+        $validatedRequest = $request->validated();
 
-        $password = (string) $request->password; // Explicitly cast to string
+        $password = $validatedRequest['password'];
+
+        if (!is_string($password)) {
+            return response()->json(['error' => 'Password must be a string.'], 400);
+        }
 
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+            'name' => $validatedRequest['name'],
+            'email' => $validatedRequest['email'],
             'password' => bcrypt($password),
-            'role' => $request->role,
+            'role' => $validatedRequest['role'],
         ]);
 
         if (! $user) {
@@ -38,13 +42,17 @@ class AuthController extends Controller
         return response()->json(['token' => $token], 201);
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function login(Request $request): JsonResponse
     {
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            $token = $user->createToken('authToken')->plainTextToken;
+            $token = $user?->createToken('authToken')->plainTextToken;
 
             return response()->json(['token' => $token], 200);
         }
@@ -52,9 +60,9 @@ class AuthController extends Controller
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request) : JsonResponse
     {
-        $request->user()->currentAccessToken()->delete();
+        $request->user()?->currentAccessToken()->delete();
 
         return response()->json(['message' => 'Logged out'], 200);
     }

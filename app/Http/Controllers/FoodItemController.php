@@ -4,27 +4,32 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreFoodItemRequest;
 use App\Models\FoodItem;
 use App\Models\Restaurant;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
 
 class FoodItemController extends Controller
 {
-    public function index(Restaurant $restaurant)
+    /**
+     * @param Restaurant $restaurant
+     * @return Collection<int, FoodItem>
+     */
+    public function index(Restaurant $restaurant) : Collection
     {
         return $restaurant->foodItems;
     }
 
-    public function store(Request $request, Restaurant $restaurant)
+    /**
+     * @param StoreFoodItemRequest $request
+     * @param Restaurant $restaurant
+     * @return JsonResponse
+     */
+    public function store(StoreFoodItemRequest $request, Restaurant $restaurant) : JsonResponse
     {
-        $request->validate([
-            'name' => 'required|string',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric',
-            'image' => 'nullable|string',
-        ]);
-
-        $foodItem = $restaurant->foodItems()->create($request->all());
+        $foodItem = $restaurant->foodItems()->create($request->validated());
 
         return response()->json($foodItem, 201);
     }
@@ -34,14 +39,23 @@ class FoodItemController extends Controller
         return $foodItem;
     }
 
-    public function update(Request $request, FoodItem $foodItem)
+    /**
+     * @param StoreFoodItemRequest $request
+     * @param FoodItem $foodItem
+     * @return JsonResponse
+     */
+    public function update(StoreFoodItemRequest $request, FoodItem $foodItem) : JsonResponse
     {
-        $foodItem->update($request->all());
+        $foodItem->update($request->validated());
 
         return response()->json($foodItem, 200);
     }
 
-    public function destroy(FoodItem $foodItem)
+    /**
+     * @param FoodItem $foodItem
+     * @return JsonResponse
+     */
+    public function destroy(FoodItem $foodItem) : JsonResponse
     {
         $foodItem->delete();
 

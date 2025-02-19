@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Rider extends Model
 {
-    use HasFactory;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -25,6 +24,7 @@ class Rider extends Model
 
     /**
      * Get the user associated with the rider.
+     * @return BelongsTo<User, $this>
      */
     public function user()
     {
@@ -33,6 +33,7 @@ class Rider extends Model
 
     /**
      * Get the orders assigned to the rider.
+     * @return HasMany<Order, $this>
      */
     public function orders()
     {

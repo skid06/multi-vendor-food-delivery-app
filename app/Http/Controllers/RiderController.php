@@ -6,20 +6,30 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Rider;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class RiderController extends Controller
 {
-    // Get available orders for riders
-    public function getAvailableOrders()
+    /**
+     * Get available orders for riders
+     *
+     * @return JsonResponse
+     */
+    public function getAvailableOrders() : JsonResponse
     {
         $orders = Order::where('status', 'ready_for_delivery')->get();
 
         return response()->json($orders);
     }
 
-    // Accept an order
-    public function acceptOrder($orderId)
+    /**
+     * Accept an order
+     *
+     * @param int $orderId
+     * @return JsonResponse
+     */
+    public function acceptOrder($orderId) : JsonResponse
     {
         $order = Order::findOrFail($orderId);
 
@@ -37,8 +47,14 @@ class RiderController extends Controller
         return response()->json($order);
     }
 
-    // Update order status (e.g., delivered)
-    public function updateOrderStatus(Request $request, $orderId)
+    /**
+     * Update order status (e.g., delivered)
+     *
+     * @param Request $request
+     * @param int $orderId
+     * @return JsonResponse
+     */
+    public function updateOrderStatus(Request $request, $orderId) : JsonResponse
     {
         $request->validate([
             'status' => 'required|in:out_for_delivery,delivered',
@@ -56,8 +72,12 @@ class RiderController extends Controller
         return response()->json($order);
     }
 
-    // Get orders assigned to the rider
-    public function getMyOrders()
+    /**
+     * Get orders assigned to the rider
+     *
+     * @return JsonResponse
+     */
+    public function getMyOrders() : JsonResponse
     {
         $orders = Order::where('rider_id', auth()->id())->get();
 

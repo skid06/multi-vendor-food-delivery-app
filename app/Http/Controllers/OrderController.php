@@ -11,7 +11,7 @@ use Illuminate\Http\JsonResponse;
 
 class OrderController extends Controller
 {
-    public function __construct(protected PaymentGateway $paymentGateway, protected \App\Services\OrderService $orderService)
+    public function __construct(protected PaymentGateway $paymentGateway, protected OrderService $orderService)
     {
     }
 

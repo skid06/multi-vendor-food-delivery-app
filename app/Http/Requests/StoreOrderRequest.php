@@ -19,6 +19,9 @@ class StoreOrderRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, string|array<string, string>> An associative array where keys are field names
+     *                                                     and values are validation rules as strings or arrays.
      */
     public function rules(): array
     {

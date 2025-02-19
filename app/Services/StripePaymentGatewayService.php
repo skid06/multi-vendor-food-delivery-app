@@ -6,19 +6,24 @@ namespace App\Services;
 
 use App\Contracts\PaymentGateway;
 use Exception;
+use Stripe\Charge;
 use Stripe\Stripe;
 
 class StripePaymentGatewayService implements PaymentGateway
 {
     public function __construct()
     {
-        Stripe::setApiKey(config('services.stripe.secret'));
+        $stripeSecret = config('services.stripe.secret');
+        if (!is_string($stripeSecret)) {
+            throw new Exception('The Stripe API key is not a valid string.');
+        }
+        Stripe::setApiKey(strval($stripeSecret));
     }
 
     public function charge(float $amount, string $token): string
     {
         try {
-            $charge = \Stripe\Charge::create([
+            $charge = Charge::create([
                 'amount' => $amount * 100, // Convert to cents
                 'currency' => 'usd',
                 'source' => $token,

@@ -40,8 +40,8 @@ class OrderService
 
     /**
      * Calculate the total amount of the order.
-     *
-     * @return float
+     * @param array<int, array{food_item_id: int, quantity: int}> $items
+     * @return int|float
      */
     private function calculateTotalAmount(array $items): int|float
     {

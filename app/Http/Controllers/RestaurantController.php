@@ -37,7 +37,7 @@ class RestaurantController extends Controller
         return response()->json($restaurant, 201);
     }
 
-    public function show(Restaurant $restaurant)
+    public function show(Restaurant $restaurant): Restaurant
     {
         return $restaurant;
     }

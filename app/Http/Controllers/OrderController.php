@@ -7,24 +7,15 @@ namespace App\Http\Controllers;
 use App\Contracts\PaymentGateway;
 use App\Http\Requests\StoreOrderRequest;
 use App\Services\OrderService;
+use Illuminate\Http\JsonResponse;
 
 class OrderController extends Controller
 {
-    protected $paymentGateway;
-
-    protected $orderService;
-
-    /**
-     * @param PaymentGateway $paymentGateway
-     * @param OrderService $orderService
-     */
-    public function __construct(PaymentGateway $paymentGateway, OrderService $orderService)
+    public function __construct(protected PaymentGateway $paymentGateway, protected \App\Services\OrderService $orderService)
     {
-        $this->paymentGateway = $paymentGateway;
-        $this->orderService = $orderService;
     }
 
-    public function store(StoreOrderRequest $request)
+    public function store(StoreOrderRequest $request): JsonResponse
     {
         return $this->orderService->createOrder($request);
     }

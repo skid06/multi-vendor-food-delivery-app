@@ -12,7 +12,7 @@ class AuthTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_user_registration()
+    public function test_user_registration(): void
     {
         $this->withoutExceptionHandling();
         $response = $this->postJson('/api/register', [
@@ -31,9 +31,9 @@ class AuthTest extends TestCase
         ]);
     }
 
-    public function test_user_login()
+    public function test_user_login(): void
     {
-        $user = User::factory()->create([
+        User::factory()->create([
             'email' => 'john@example.com',
             'password' => bcrypt('password'),
         ]);
@@ -47,7 +47,7 @@ class AuthTest extends TestCase
             ->assertJsonStructure(['token']);
     }
 
-    public function test_user_logout()
+    public function test_user_logout(): void
     {
         $this->withoutExceptionHandling();
         $user = User::factory()->create();

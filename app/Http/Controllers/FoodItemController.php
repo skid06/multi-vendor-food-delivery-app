@@ -29,7 +29,7 @@ class FoodItemController extends Controller
         return response()->json($foodItem, 201);
     }
 
-    public function show(FoodItem $foodItem)
+    public function show(FoodItem $foodItem): FoodItem
     {
         return $foodItem;
     }

@@ -26,7 +26,7 @@ class StripePaymentGatewayService implements PaymentGateway
 
             return $charge->id;
         } catch (Exception $e) {
-            throw new Exception('Payment failed: '.$e->getMessage());
+            throw new Exception('Payment failed: '.$e->getMessage(), $e->getCode(), $e);
         }
     }
 }

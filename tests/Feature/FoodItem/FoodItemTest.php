@@ -14,7 +14,7 @@ class FoodItemTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_create_food_item()
+    public function test_create_food_item(): void
     {
         //        $this->withoutExceptionHandling();
         $user = User::factory()->create(['role' => 'vendor']);
@@ -37,7 +37,7 @@ class FoodItemTest extends TestCase
         ]);
     }
 
-    public function test_update_food_item()
+    public function test_update_food_item(): void
     {
         $user = User::factory()->create(['role' => 'vendor']);
         $restaurant = Restaurant::factory()->create(['user_id' => $user->id]);

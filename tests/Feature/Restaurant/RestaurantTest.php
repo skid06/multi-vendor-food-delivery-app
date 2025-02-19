@@ -13,7 +13,7 @@ class RestaurantTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_create_restaurant()
+    public function test_create_restaurant(): void
     {
         $this->withoutExceptionHandling();
         $user = User::factory()->create(['role' => 'vendor']);
@@ -36,7 +36,7 @@ class RestaurantTest extends TestCase
         ]);
     }
 
-    public function test_update_restaurant()
+    public function test_update_restaurant(): void
     {
         $user = User::factory()->create(['role' => 'vendor']);
         $restaurant = Restaurant::factory()->create(['user_id' => $user->id]);
@@ -56,7 +56,7 @@ class RestaurantTest extends TestCase
         ]);
     }
 
-    public function test_delete_restaurant()
+    public function test_delete_restaurant(): void
     {
         $user = User::factory()->create(['role' => 'vendor']);
         $restaurant = Restaurant::factory()->create(['user_id' => $user->id]);

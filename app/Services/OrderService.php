@@ -14,26 +14,20 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderService
 {
-    protected $paymentGateway;
-
-    public function __construct(PaymentGateway $paymentGateway)
+    public function __construct(protected PaymentGateway $paymentGateway)
     {
-        $this->paymentGateway = $paymentGateway;
     }
 
     /**
      * Handle the process of creating an order.
-     *
-     * @return \Illuminate\Http\JsonResponse
      */
     public function createOrder(StoreOrderRequest $request): JsonResponse
     {
-        return 'fd';
         // Calculate total amount
         $totalAmount = $this->calculateTotalAmount($request->items);
 
         // Process the payment
-        $paymentId = $this->paymentGateway->charge($totalAmount, $request->payment_token);
+        $this->paymentGateway->charge($totalAmount, $request->payment_token);
 
         // Create the order
         $order = $this->createOrderRecord($request, $totalAmount);
@@ -49,7 +43,7 @@ class OrderService
      *
      * @return float
      */
-    private function calculateTotalAmount(array $items)
+    private function calculateTotalAmount(array $items): int|float
     {
         $totalAmount = 0;
 
@@ -78,10 +72,8 @@ class OrderService
 
     /**
      * Add the order items to the order.
-     *
-     * @return void
      */
-    private function addOrderItems(Order $order, array $items)
+    private function addOrderItems(Order $order, array $items): void
     {
         foreach ($items as $item) {
             OrderItem::create([

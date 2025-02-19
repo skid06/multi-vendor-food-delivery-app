@@ -17,7 +17,7 @@ class OrderTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_place_order()
+    public function test_place_order(): void
     {
         // Create a user
         $user = User::factory()->create(['role' => 'customer']);

@@ -13,8 +13,6 @@ class RiderController extends Controller
 {
     /**
      * Get available orders for riders
-     *
-     * @return JsonResponse
      */
     public function getAvailableOrders() : JsonResponse
     {
@@ -27,7 +25,6 @@ class RiderController extends Controller
      * Accept an order
      *
      * @param int $orderId
-     * @return JsonResponse
      */
     public function acceptOrder($orderId) : JsonResponse
     {
@@ -50,9 +47,7 @@ class RiderController extends Controller
     /**
      * Update order status (e.g., delivered)
      *
-     * @param Request $request
      * @param int $orderId
-     * @return JsonResponse
      */
     public function updateOrderStatus(Request $request, $orderId) : JsonResponse
     {
@@ -74,8 +69,6 @@ class RiderController extends Controller
 
     /**
      * Get orders assigned to the rider
-     *
-     * @return JsonResponse
      */
     public function getMyOrders() : JsonResponse
     {

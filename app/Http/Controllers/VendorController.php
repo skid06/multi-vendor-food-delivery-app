@@ -17,7 +17,7 @@ class VendorController extends Controller
      */
     public function getOrders() : JsonResponse
     {
-        $orders = Order::whereHas('restaurant', function (Builder $query) {
+        $orders = Order::whereHas('restaurant', function (Builder $query): void {
             $query->where('user_id', auth()->id());
         })->get();
 
@@ -27,9 +27,7 @@ class VendorController extends Controller
     /**
      * Update order status
      *
-     * @param Request $request
      * @param int $orderId
-     * @return JsonResponse
      */
     public function updateOrderStatus(Request $request, $orderId) : JsonResponse
     {

@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Collection;
 class FoodItemController extends Controller
 {
     /**
-     * @param Restaurant $restaurant
      * @return Collection<int, FoodItem>
      */
     public function index(Restaurant $restaurant) : Collection
@@ -22,11 +21,6 @@ class FoodItemController extends Controller
         return $restaurant->foodItems;
     }
 
-    /**
-     * @param StoreFoodItemRequest $request
-     * @param Restaurant $restaurant
-     * @return JsonResponse
-     */
     public function store(StoreFoodItemRequest $request, Restaurant $restaurant) : JsonResponse
     {
         $foodItem = $restaurant->foodItems()->create($request->validated());
@@ -39,11 +33,6 @@ class FoodItemController extends Controller
         return $foodItem;
     }
 
-    /**
-     * @param StoreFoodItemRequest $request
-     * @param FoodItem $foodItem
-     * @return JsonResponse
-     */
     public function update(StoreFoodItemRequest $request, FoodItem $foodItem) : JsonResponse
     {
         $foodItem->update($request->validated());
@@ -51,10 +40,6 @@ class FoodItemController extends Controller
         return response()->json($foodItem, 200);
     }
 
-    /**
-     * @param FoodItem $foodItem
-     * @return JsonResponse
-     */
     public function destroy(FoodItem $foodItem) : JsonResponse
     {
         $foodItem->delete();

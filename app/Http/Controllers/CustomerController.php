@@ -15,7 +15,6 @@ class CustomerController extends Controller
 {
     /**
      * Get all restaurants
-     * @return JsonResponse
      */
     public function getRestaurants() : JsonResponse
     {
@@ -28,7 +27,6 @@ class CustomerController extends Controller
      * Get food items for a specific restaurant
      *
      * @param int $restaurantId
-     * @return JsonResponse
      */
     public function getFoodItems($restaurantId) : JsonResponse
     {
@@ -39,9 +37,6 @@ class CustomerController extends Controller
 
     /**
      * Place an order
-     *
-     * @param StoreCustomerRequest $request
-     * @return JsonResponse
      */
     public function placeOrder(StoreCustomerRequest $request) : JsonResponse
     {
@@ -79,7 +74,6 @@ class CustomerController extends Controller
 
     /**
      * Get order history for the customer
-     * @return JsonResponse
      */
     public function getOrderHistory() : JsonResponse
     {

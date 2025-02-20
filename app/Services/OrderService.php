@@ -20,9 +20,6 @@ class OrderService
 
     /**
      * Handle the process of creating an order.
-     *
-     * @param StoreOrderRequest $request
-     * @return JsonResponse
      */
     public function createOrder(StoreOrderRequest $request): JsonResponse
     {
@@ -52,7 +49,6 @@ class OrderService
     /**
      * Calculate the total amount of the order.
      * @param array<int, array{food_item_id: int, quantity: int}> $items
-     * @return int|float
      */
     private function calculateTotalAmount(array $items): int|float
     {
@@ -83,7 +79,6 @@ class OrderService
 
     /**
      * Add the order items to the order.
-     * @param Order $order
      * @param array<int, array{food_item_id: int, quantity: int}> $items
      */
     private function addOrderItems(Order $order, array $items): void

@@ -21,10 +21,6 @@ class RestaurantController extends Controller
         return Restaurant::all();
     }
 
-    /**
-     * @param StoreRestaurantRequest $request
-     * @return JsonResponse
-     */
     public function store(StoreRestaurantRequest $request) : JsonResponse
     {
         $validatedRequest = $request->validated();
@@ -41,20 +37,11 @@ class RestaurantController extends Controller
         return response()->json($restaurant, 201);
     }
 
-    /**
-     * @param Restaurant $restaurant
-     * @return Restaurant
-     */
     public function show(Restaurant $restaurant): Restaurant
     {
         return $restaurant;
     }
 
-    /**
-     * @param StoreRestaurantRequest $request
-     * @param Restaurant $restaurant
-     * @return JsonResponse
-     */
     public function update(StoreRestaurantRequest $request, Restaurant $restaurant) : JsonResponse
     {
         $restaurant->update($request->validated());
@@ -62,10 +49,6 @@ class RestaurantController extends Controller
         return response()->json($restaurant, 200);
     }
 
-    /**
-     * @param Restaurant $restaurant
-     * @return JsonResponse
-     */
     public function destroy(Restaurant $restaurant) : JsonResponse
     {
         $restaurant->delete();

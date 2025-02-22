@@ -33,9 +33,9 @@ class FoodItemController extends Controller
         return $foodItem;
     }
 
-    public function update(StoreFoodItemRequest $request, FoodItem $foodItem) : JsonResponse
+    public function update(Request $request, FoodItem $foodItem) : JsonResponse
     {
-        $foodItem->update($request->validated());
+        $foodItem->update($request->only(['name', 'description', 'price', 'image']));
 
         return response()->json($foodItem, 200);
     }

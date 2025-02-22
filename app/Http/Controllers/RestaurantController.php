@@ -42,9 +42,9 @@ class RestaurantController extends Controller
         return $restaurant;
     }
 
-    public function update(StoreRestaurantRequest $request, Restaurant $restaurant) : JsonResponse
+    public function update(Request $request, Restaurant $restaurant) : JsonResponse
     {
-        $restaurant->update($request->validated());
+        $restaurant->update($request->only(['name', 'description', 'address', 'phone', 'logo']));
 
         return response()->json($restaurant, 200);
     }

@@ -14,7 +14,7 @@ class AuthTest extends TestCase
 
     public function test_user_registration(): void
     {
-        $this->withoutExceptionHandling();
+//        $this->withoutExceptionHandling();
         $response = $this->postJson('/api/register', [
             'name' => 'John Doe',
             'email' => 'john@example.com',

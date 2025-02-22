@@ -22,6 +22,7 @@ class RestaurantTest extends TestCase
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$token,
         ])->postJson('/api/restaurants', [
+            'user_id' => $user->id,
             'name' => 'Test Restaurant',
             'description' => 'A test restaurant',
             'address' => '123 Test St',
@@ -38,6 +39,7 @@ class RestaurantTest extends TestCase
 
     public function test_update_restaurant(): void
     {
+        $this->withoutExceptionHandling();
         $user = User::factory()->create(['role' => 'vendor']);
         $restaurant = Restaurant::factory()->create(['user_id' => $user->id]);
         $token = $user->createToken('authToken')->plainTextToken;
@@ -58,6 +60,7 @@ class RestaurantTest extends TestCase
 
     public function test_delete_restaurant(): void
     {
+        $this->withoutExceptionHandling();
         $user = User::factory()->create(['role' => 'vendor']);
         $restaurant = Restaurant::factory()->create(['user_id' => $user->id]);
         $token = $user->createToken('authToken')->plainTextToken;
